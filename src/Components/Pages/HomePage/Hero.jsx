@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import gif from "../../../assets/img/loading.gif";
+import gif from "../../../assets/img/timer.gif";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +17,7 @@ const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const loaderRef = useRef(null);
   const frame = { maxIndex: 319 };
+
 
   useEffect(() => {
     const imgs = [];
@@ -40,6 +41,7 @@ const Hero = () => {
     setImages(imgs);
   }, []);
 
+
   const drawFrame = index => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -60,6 +62,19 @@ const Hero = () => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.drawImage(img, x, y, img.width * scale, img.height * scale);
   };
+
+  useEffect(() => {
+    // Disable scroll when loader is active
+    if (!isLoaded) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isLoaded]);
 
   useEffect(() => {
     if (!images.length || !isLoaded) return;
@@ -89,10 +104,9 @@ const Hero = () => {
       },
     });
 
-    return () => {
-      tl.scrollTrigger?.kill();
-    };
+    return () => tl.scrollTrigger?.kill();
   }, [images, isLoaded]);
+
 
   return (
     <section
@@ -107,12 +121,15 @@ const Hero = () => {
 
       <div
         ref={loaderRef}
-        className="absolute inset-0 bg-black flex flex-col items-center justify-center z-50"
+        className="fixed inset-0 bg-black flex flex-col items-center justify-center z-9999"
       >
-        <img src={gif} alt="not found" className="h-full w-full object-cover" />
+        <img
+          src={gif}
+          alt="loading..."
+          className="w-[140px] sm:w-[180px] md:w-[220px] lg:w-[260px] object-contain animate-pulse"
+        />
       </div>
 
-      {/* Content */}
       <div className="absolute bg-black/30 inset-0 flex justify-center items-center w-full h-screen z-10">
         <div className="container flex flex-col-reverse xl:flex-row gap-y-8 md:gap-y-10 xl:items-center w-full justify-between">
           <div className="flex flex-col gap-y-[252px]">
