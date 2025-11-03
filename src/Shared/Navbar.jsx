@@ -5,7 +5,7 @@ import { SplitText } from "gsap/SplitText";
 import logo from "../assets/img/logo-header.png";
 
 const navLink = [
-  { label: "Hero", redirectLink: "hero" },
+  { label: "Home", redirectLink: "hero" },
   { label: "About Us", redirectLink: "about-us" },
   { label: "Products", redirectLink: "products" },
   { label: "Why Choose Us", redirectLink: "why-choose-us" },
