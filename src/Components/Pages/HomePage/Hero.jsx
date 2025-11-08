@@ -6,9 +6,9 @@ import gif from "../../../assets/img/timer.gif";
 gsap.registerPlugin(ScrollTrigger);
 
 const MinningFeatures = [
-  "Data Centers & Cloud Providers",
-  "AI/ML Compute Clusters",
-  "Enterprise Backup & Recovery Systems",
+  "Large-Scale Mining Operations",
+  "Data Center Co-Location Facilities",
+  "Independent Mining Farms",
 ];
 
 const Hero = () => {
@@ -131,20 +131,26 @@ const Hero = () => {
       </div>
 
       <div className="absolute bg-black/30 inset-0 flex justify-center items-center w-full h-screen z-10">
-        <div className="container flex flex-col-reverse xl:flex-row gap-y-8 md:gap-y-10 xl:items-center w-full justify-between">
+        <div className="container flex mt-[30px] 3xl:mt-[150px] flex-col-reverse xl:flex-row gap-y-8 md:gap-y-10 xl:items-center w-full justify-between">
           <div className="flex flex-col gap-y-[252px]">
-            <div className="flex flex-col gap-y-12 md:gap-y-20 xl:gap-y-[150px] 3xl:gap-y-[223px] items-start">
-              <p className="text-lg md:text-xl 3xl:text-2xl font-normal leading-[120%] md:leading-[150%] text-off-gray max-w-[449px]">
-                From scalable rackmount storage systems to ultra fast NVMe
-                cooling we deliver the technology that drives modern data
-                centers.
-              </p>
+            <div className="flex flex-col gap-y-12 md:gap-y-20 2xl:gap-y-[150px]  items-start">
+              <div className="flex flex-col gap-y-4 md:gap-y-6   ">
+                <h2 className=" text-xl sm:text-[30px] md:text-[36px] xl:text-[48px] 2xl:text-[56px] font-[590] leading-[120%] text-white font-sf-pro max-w-[571px] ">
+                  The First 100% U.S. Manufactured Bitcoin Mining Platform
+                </h2>
+                <p className="text-lg md:text-xl 3xl:text-2xl font-normal leading-[120%] md:leading-[150%] text-off-gray max-w-[449px]">
+                  From patent-pending Dynamic Super balancing to hot-swappable
+                  modular nodes, we deliver the technology that drives
+                  profitable mining operations.
+                </p>
+              </div>
               <button className="primary-btn">Get a Free Consultation</button>
             </div>
           </div>
 
-          <h2 className="text-[30px] md:text-[36px] xl:text-[42px] 2xl:text-[48px] 3xl:text-[56px] font-[590] text-white leading-[120%] max-w-[650px] xl:max-w-[380px] 2xl:max-w-[578px]">
-            Empower Your Data Infrastructure with Enterprise Grade Performance.
+          <h2 className=" text-xl sm:text-[30px] md:text-[36px] xl:text-[42px] 2xl:text-[48px] 3xl:text-[56px] font-[590] text-white leading-[120%] max-w-[650px] xl:max-w-[380px] 2xl:max-w-[578px]">
+            Empower Your Mining Infrastructure with Enterprise-Grade Performance
+            at Competitive Pricing.
           </h2>
         </div>
 
