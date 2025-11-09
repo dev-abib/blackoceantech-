@@ -7,25 +7,14 @@ import Hero from "../Components/Pages/HomePage/Hero";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <>
-        <Hero /> 
-        <Layout />
-      </>
-    ),
+    element: <Layout />,
     children: [
       {
         index: true,
         element: <HomePage />,
       },
-    ],
-  },
-  {
-    path: "/contact-us",
-    element: <Layout />, 
-    children: [
       {
-        index: true,
+        path: "/contact-us",
         element: <ContactUsPage />,
       },
     ],

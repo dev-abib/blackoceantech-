@@ -68,7 +68,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="h-auto w-full py-4 3xl:py-6 xl:backdrop-blur-sm   fixed top-0 left-0 z-50">
+    <nav className="h-auto w-full py-4 3xl:py-6    fixed top-0 left-0 z-50">
       <div className="h-auto w-full container  flex flex-row justify-between items-center">
         <div onClick={() => {
           navigate("/")
