@@ -162,7 +162,7 @@ const Hero = () => {
         <img
           src={gif}
           alt="loading..."
-          className="w-[140px] sm:w-[180px] md:w-[220px] lg:w-[260px] object-contain animate-pulse"
+          className="w-[140px] sm:w-[180px] md:w-[220px] lg:w-[260px] object-contain "
         />
       </div>
       <div className="absolute bg-black/30 inset-0 flex justify-center items-center w-full h-screen z-10">
