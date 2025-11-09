@@ -26,7 +26,7 @@ const ContactSection = () => {
         "3bRorChQlztlXeyE9"
       );
 
-      toast.success("Message sent successfully! 🚀", {
+      toast.success("Message sent successfully! ", {
         style: {
           borderRadius: "10px",
           background: "#1a1a1a",
@@ -35,7 +35,7 @@ const ContactSection = () => {
       });
       reset();
     } catch (error) {
-      toast.error("Failed to send message. Please try again 😔", {
+      toast.error("Failed to send message. Please try again ", {
         style: {
           borderRadius: "10px",
           background: "#1a1a1a",
