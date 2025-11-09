@@ -11,6 +11,7 @@ const HeroV2 = () => {
   const navigate = useNavigate();
   return (
     <section
+      id="hero"
       style={{
         background: `
           linear-gradient(0deg,rgba(16, 16, 16, 0.69) 0%,rgba(16, 16, 16, 0.69) 100%),url(${hero_bg})

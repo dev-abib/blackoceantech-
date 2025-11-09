@@ -13,7 +13,6 @@ const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const loaderRef = useRef(null);
   const frame = { maxIndex: 319 };
-  const navigate = useNavigate();
   const location = useLocation();
   const resizeObserverRef = useRef(null);
 
@@ -141,7 +140,6 @@ const Hero = () => {
 
   return (
     <section
-      id="hero"
       className="hero-section h-screen w-full relative overflow-hidden bg-black"
     >
       <canvas
