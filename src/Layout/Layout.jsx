@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import Navbar from "../Shared/Navbar";
 import Footer from "../Shared/Footer";
-import { Outlet, ScrollRestoration } from "react-router-dom";
+import { Outlet, ScrollRestoration, useLocation } from "react-router-dom";
 
 const Layout = () => {
+
   useEffect(() => {
     const prev = window.history.scrollRestoration;
     window.history.scrollRestoration = "manual";
@@ -11,6 +12,8 @@ const Layout = () => {
       window.history.scrollRestoration = prev || "auto";
     };
   }, []);
+
+  
   return (
     <>
       <Navbar />

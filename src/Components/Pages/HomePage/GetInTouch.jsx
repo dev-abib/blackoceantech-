@@ -1,7 +1,9 @@
 import React from "react";
 import logo_small from "../../../assets/logo-small.png";
+import { useNavigate } from "react-router-dom";
 
 const GetInTouch = () => {
+  const navigate = useNavigate();
   return (
     <section
       id="contact-us"
@@ -15,7 +17,14 @@ const GetInTouch = () => {
               can help you design the perfect setup for speed, efficiency, and
               scalability.
             </p>
-            <button className="primary-btn">Contact with Us</button>
+            <button
+              onClick={() => {
+                navigate("/contact-us");
+              }}
+              className="primary-btn"
+            >
+              Connect with Us
+            </button>
           </div>
           <img
             src={logo_small}

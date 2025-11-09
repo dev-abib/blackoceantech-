@@ -3,6 +3,8 @@ import { Link } from "react-scroll";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import logo from "../assets/img/logo-header.png";
+import { useNavigate } from "react-router-dom";
+
 
 const navLink = [
   { label: "Home", redirectLink: "hero" },
@@ -16,6 +18,7 @@ const Navbar = () => {
   const [active, setActive] = useState(navLink[0].label);
   const sidebarRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -67,11 +70,15 @@ const Navbar = () => {
   return (
     <nav className="h-auto w-full py-4 3xl:py-6 xl:backdrop-blur-sm   fixed top-0 left-0 z-50">
       <div className="h-auto w-full container  flex flex-row justify-between items-center">
-        <img
-          src={logo}
-          alt="logo"
-          className="max-w-[264px] max-h-[50px] h-full w-full object-cover"
-        />
+        <div onClick={() => {
+          navigate("/")
+        }} >
+          <img
+            src={logo}
+            alt="logo"
+            className="max-w-[264px] cursor-pointer max-h-[50px] h-full w-full object-cover"
+          />
+        </div>
         {/* navbar desktop */}
         <ul className=" hidden xl:flex flex-row gap-x-12 items-center">
           {navLink.map((nav, idx) => (

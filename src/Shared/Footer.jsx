@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../assets/logo.svg";
+import { Link } from "react-router-dom";
 
 const footerLink = [
   {
@@ -27,13 +28,14 @@ const Footer = () => {
           <ul className="flex flex-row justify-between sm:justify-normal sm:gap-x-6 lg:gap-x-12 items-center ">
             {footerLink.map((footer, idx) => {
               return (
-                <li
+                <Link
+                  to={footer.redirectLink}
                   key={idx}
                   className=" hover:text-light-ocean-blue cursor-pointer font-semibold ease-in-out duration-500  text-sm sm:text-base  text-white"
                 >
                   {" "}
                   {footer.label}{" "}
-                </li>
+                </Link>
               );
             })}
           </ul>
