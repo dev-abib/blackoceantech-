@@ -1,4 +1,3 @@
-import React from "react";
 import logo_small from "../../../assets/logo-small.png";
 import { useNavigate } from "react-router-dom";
 

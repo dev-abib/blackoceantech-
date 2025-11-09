@@ -1,4 +1,3 @@
-import gif from "../../../assets/img/timer.gif";
 import { useNavigate, useLocation } from "react-router-dom";
 import hero_bg from "../../../assets/img/hero_bg.png";
 

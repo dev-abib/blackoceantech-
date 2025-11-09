@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import  { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gif from "../../../assets/img/timer.gif";
@@ -41,11 +41,11 @@ const Hero = () => {
     const context = canvas.getContext("2d");
     if (!images[index] || !canvas) return;
     const { clientWidth, clientHeight } = canvas;
-    canvas.width = clientWidth * window.devicePixelRatio; // For high-DPI crispness
+    canvas.width = clientWidth * window.devicePixelRatio;
     canvas.height = clientHeight * window.devicePixelRatio;
-    context.scale(window.devicePixelRatio, window.devicePixelRatio); // Scale context to match
+    context.scale(window.devicePixelRatio, window.devicePixelRatio);
     const img = images[index];
-    // Use Math.max for "cover" scaling to fill the canvas fully (crop if needed)
+
     const scale = Math.max(clientWidth / img.width, clientHeight / img.height);
     const scaledWidth = img.width * scale;
     const scaledHeight = img.height * scale;
@@ -55,13 +55,13 @@ const Hero = () => {
     context.drawImage(img, x, y, scaledWidth, scaledHeight);
   };
 
-  // Handle resize to ensure canvas always fills available space
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !isLoaded) return;
 
     const handleResize = () => {
-      drawFrame(0); // Redraw initial frame on resize
+      drawFrame(0); 
     };
 
     resizeObserverRef.current = new ResizeObserver(handleResize);
@@ -78,17 +78,16 @@ const Hero = () => {
   }, [isLoaded]);
 
   useEffect(() => {
-    // Prevent horizontal overflow globally during load and after
     if (!isLoaded) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflowX = "hidden";
     } else {
       document.body.style.overflow = "auto";
-      document.documentElement.style.overflowX = "hidden"; // Keep x hidden to prevent any scrollbars
+      document.documentElement.style.overflowX = "hidden"; 
     }
     return () => {
       document.body.style.overflow = "auto";
-      document.documentElement.style.overflowX = ""; // Reset on unmount
+      document.documentElement.style.overflowX = "";
     };
   }, [isLoaded]);
 
