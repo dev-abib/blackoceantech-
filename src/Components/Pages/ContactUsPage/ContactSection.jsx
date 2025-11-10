@@ -52,7 +52,7 @@ const ContactSection = () => {
         <div className="container flex flex-col items-center lg:items-start gap-y-10 2xl:flex-row w-full justify-between">
           <div className="relative h-auto flex justify-start items-start">
             <h2 className="relative text-[42px] sm:text-[64px] xl:text-[80px] 2xl:text-[100px] 3xl:text-[136px] font-[590] text-[#FFFFFF66] leading-[120%]">
-              Contact <br className="hidden 2xl:block" />{" "}
+              Connect <br className="hidden 2xl:block" />{" "}
               <span className="text-white">with</span> Us.
             </h2>
             <div className="absolute bottom-0 right-0 mb-[-120px]">

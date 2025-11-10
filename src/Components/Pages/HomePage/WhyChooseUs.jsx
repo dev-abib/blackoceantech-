@@ -50,12 +50,12 @@ const WhyChooseUs = () => {
         flex flex-col lg:flex-row w-full justify-between gap-y-10 lg:items-center"
         >
           <h2 className=" text-[42px] sm:text-[64px] xl:text-[80px] 2xl:text-[100px] 3xl:text-[136px] font-[590] text-[#FFFFFF66] leading-[120%] ">
-            Why <br /> <span className="text-white">Choose</span> Us.
+            Why choose <br /> <span className="text-white">BLQCBuster</span>
           </h2>
           <p className="primary-heading max-w-[344px]! ">
-            With partners with years of expertise in ASIC design, power
+            Having partners with years of expertise in ASIC design, power
             electronics, and enterprise-grade hardware engineering, BlockQuarry
-            delivers innovation that directly impacts your bottom line.
+            delivers innovation that directly benefits your bottom line.
           </p>
         </div>
         <div className="h-auto w-full rounded-4xl xl:rounded-[48px] p-6 xl:p-12 bg-secondary-black">
