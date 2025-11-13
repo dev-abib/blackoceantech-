@@ -1,0 +1,49 @@
+import { useNavigate } from "react-router-dom";
+
+const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  return (
+    <section
+      id="not-found"
+      style={{
+        background:
+          "linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+      className="h-screen w-full pt-20 lg:pb-0 lg:py-[150px]"
+    >
+      <div className="container flex flex-col gap-y-[60px] lg:gap-y-[125px]">
+        <div className="flex flex-col-reverse xl:flex-row gap-y-8 md:gap-y-10 xl:items-center w-full justify-between">
+          <div className="flex flex-col gap-y-12 md:gap-y-20 2xl:gap-y-[185px] items-start">
+            <div className="flex flex-col gap-y-4 md:gap-y-6">
+              <h2 className="text-xl sm:text-[30px] md:text-[36px] xl:text-[48px] 2xl:text-[56px] font-[590] leading-[120%] text-white font-sf-pro max-w-[571px]">
+                404 - Page Not Found
+              </h2>
+              <p className="text-lg md:text-xl 3xl:text-2xl font-normal leading-[120%] md:leading-[150%] text-off-gray max-w-[449px]">
+                It seems the page you're looking for doesn't exist. Perhaps the
+                URL is incorrect or the page was moved.
+              </p>
+            </div>
+            <button onClick={() => navigate("/")} className="primary-btn">
+              Go Back to Home
+            </button>
+          </div>
+          <h2 className="text-xl sm:text-[30px] md:text-[36px] xl:text-[42px] 2xl:text-[48px] 3xl:text-[56px] font-[590] text-white leading-[120%] max-w-[650px] xl:max-w-[380px] 2xl:max-w-[578px]">
+            Oops! The page you requested couldn't be found.
+          </h2>
+        </div>
+        <div className="container flex flex-row flex-wrap gap-y-2 justify-between">
+          <p className="text-sm md:text-base font-normal text-primary-gray leading-[150%]">
+            Make sure you entered the correct URL or click the button to go back
+            home.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default NotFoundPage;

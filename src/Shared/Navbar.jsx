@@ -3,8 +3,7 @@ import { Link } from "react-scroll";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import logo from "../assets/img/logo-header.png";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 const navLink = [
   { label: "Home", redirectLink: "hero" },
@@ -18,7 +17,8 @@ const Navbar = () => {
   const [active, setActive] = useState(navLink[0].label);
   const sidebarRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation().pathname;
 
   useEffect(() => {
     const handleClickOutside = event => {
@@ -67,12 +67,23 @@ const Navbar = () => {
     });
   }, []);
 
+  const handleLinkClick = redirectLink => {
+    if (location === "/") {
+      document.getElementById(redirectLink)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      setActive(redirectLink);
+    } else {
+      navigate("/");
+      setActive(redirectLink);
+    }
+  };
+
   return (
-    <nav className="h-auto w-full py-4 3xl:py-6    fixed top-0 left-0 z-50">
-      <div className="h-auto w-full container  flex flex-row justify-between items-center">
-        <div onClick={() => {
-          navigate("/")
-        }} >
+    <nav className="h-auto w-full py-4 3xl:py-6 fixed top-0 left-0 z-50">
+      <div className="h-auto w-full container flex flex-row justify-between items-center">
+        <div onClick={() => navigate("/")}>
           <img
             src={logo}
             alt="logo"
@@ -80,7 +91,7 @@ const Navbar = () => {
           />
         </div>
         {/* navbar desktop */}
-        <ul className=" hidden xl:flex flex-row gap-x-12 items-center">
+        <ul className="hidden xl:flex flex-row gap-x-12 items-center">
           {navLink.map((nav, idx) => (
             <li
               key={idx}
@@ -88,14 +99,12 @@ const Navbar = () => {
                 active === nav.label ? "text-light-ocean-blue" : "text-white"
               }`}
             >
-              <Link
-                to={nav.redirectLink}
-                duration={500}
-                onClick={() => setActive(nav.label)}
+              <button
+                onClick={() => handleLinkClick(nav.redirectLink)}
                 className="split"
               >
                 {nav.label}
-              </Link>
+              </button>
             </li>
           ))}
         </ul>
@@ -126,7 +135,7 @@ const Navbar = () => {
         {/* navbar mobile */}
         <div
           ref={sidebarRef}
-          className={`fixed flex flex-col bg-side_nav backdrop-blur-md    gap-y-8 py-5 px-5 top-0 left-0 h-full w-[280px] bg-primary-color   shadow-lg transform transition-transform duration-500 ease-in-out ${
+          className={`fixed flex flex-col bg-side_nav backdrop-blur-md gap-y-8 py-5 px-5 top-0 left-0 h-full w-[280px] bg-primary-color shadow-lg transform transition-transform duration-500 ease-in-out ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
@@ -137,24 +146,22 @@ const Navbar = () => {
               className="max-w-[264px] max-h-[50px] h-full w-full object-cover"
             />
           </Link>
-          <ul className=" flex  xl:hidden flex-col gap-y-4 ">
+          <ul className="flex xl:hidden flex-col gap-y-4">
             {navLink.map((nav, idx) => (
               <li
                 key={idx}
-                className={`  cursor-pointer font-semibold ease-in-out duration-500 text-base  ${
+                className={`cursor-pointer font-semibold ease-in-out duration-500 text-base ${
                   active === nav.label ? "text-light-ocean-blue" : "text-white"
-                } `}
+                }`}
               >
-                <Link
-                  to={nav.redirectLink}
-                  duration={500}
+                <button
                   onClick={() => {
-                    setActive(nav.redirectLink);
+                    handleLinkClick(nav.redirectLink);
                     setIsOpen(false);
                   }}
                 >
                   {nav.label}
-                </Link>
+                </button>
               </li>
             ))}
           </ul>

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
 import toast, { Toaster } from "react-hot-toast";
 import { Dots } from "../../SvgContainer/SvgContainer";
+import {  MoonLoader } from "react-spinners";
 
 const ContactSection = () => {
   const {
@@ -12,18 +13,22 @@ const ContactSection = () => {
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm();
 
+  const serviceId = import.meta.env.VITE_SERVICE_ID;
+  const publicId = import.meta.env.VITE_PUBLIC_ID;
+  const templateId = import.meta.env.VITE_TEMPLATE_ID;
+
   const onSubmit = async data => {
     try {
       await emailjs.send(
-        "service_yzdze1n",
-        "template_im38pca",
+        serviceId,
+        templateId,
         {
           name: data.name,
           email: data.email,
           phone: data.phone,
           message: data.message,
         },
-        "3bRorChQlztlXeyE9"
+        publicId
       );
 
       toast.success("Message sent successfully! ", {
@@ -122,13 +127,13 @@ const ContactSection = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`primary-btn transition-all ${
-                isSubmitting ? "opacity-60 cursor-not-allowed" : ""
-              }`}
+              className={`primary-btn transition-all flex! items-center! justify-center! `}
             >
-              {isSubmitting
-                ? "Sending..."
-                : "Submit"}
+              {isSubmitting ? (
+                <MoonLoader  size={22} color="#0ebdf7" />
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
         </div>
