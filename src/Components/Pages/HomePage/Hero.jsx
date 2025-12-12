@@ -16,24 +16,44 @@ const Hero = () => {
   const location = useLocation();
   const resizeObserverRef = useRef(null);
 
+
   useEffect(() => {
     const imgs = [];
     let loadedCount = 0;
+
+    const cachedImages = JSON.parse(
+      localStorage.getItem("cachedImages") || "[]"
+    );
+
     for (let i = 1; i <= frame.maxIndex; i++) {
       const path = new URL(
         `../../../assets/img/frames/frame_${i.toString().padStart(4, "0")}.png`,
         import.meta.url
       ).href;
-      const img = new Image();
-      img.src = path;
-      img.onload = () => {
+
+      if (cachedImages[i - 1]) {
+
+        const img = new Image();
+        img.src = cachedImages[i - 1];
+        imgs.push(img);
         loadedCount++;
-        if (loadedCount === frame.maxIndex) setIsLoaded(true);
-      };
-      imgs.push(img);
+      } else {
+
+        const img = new Image();
+        img.src = path;
+        img.onload = () => {
+          loadedCount++;
+          cachedImages[i - 1] = path; 
+          localStorage.setItem("cachedImages", JSON.stringify(cachedImages));
+          if (loadedCount === frame.maxIndex) setIsLoaded(true);
+        };
+        imgs.push(img);
+      }
     }
+
     setImages(imgs);
   }, []);
+
 
   const drawFrame = index => {
     const canvas = canvasRef.current;
@@ -53,6 +73,7 @@ const Hero = () => {
     context.clearRect(0, 0, clientWidth, clientHeight);
     context.drawImage(img, x, y, scaledWidth, scaledHeight);
   };
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -75,6 +96,7 @@ const Hero = () => {
     };
   }, [isLoaded]);
 
+
   useEffect(() => {
     if (!isLoaded) {
       document.body.style.overflow = "hidden";
@@ -88,6 +110,7 @@ const Hero = () => {
       document.documentElement.style.overflowX = "";
     };
   }, [isLoaded]);
+
 
   useLayoutEffect(() => {
     if (!images.length || !isLoaded) return;
