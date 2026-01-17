@@ -10,31 +10,54 @@ const Hero = () => {
   const canvasRef = useRef(null);
   const [images, setImages] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [firstImageLoaded, setFirstImageLoaded] = useState(false);
   const loaderRef = useRef(null);
   const frame = { maxIndex: 319 };
   const navigate = useNavigate();
   const location = useLocation();
   const resizeObserverRef = useRef(null);
 
+  // Preload first few images and lazy load the rest
   useEffect(() => {
-    const imgs = [];
+    const preloadImages = [];
     let loadedCount = 0;
-    for (let i = 1; i <= frame.maxIndex; i++) {
+
+    // Preload first 10 images (or adjust based on your needs)
+    for (let i = 1; i <= 10; i++) {
       const path = new URL(
         `../../../assets/img/frames/frame_${i.toString().padStart(4, "0")}.png`,
-        import.meta.url
+        import.meta.url,
       ).href;
       const img = new Image();
       img.src = path;
       img.onload = () => {
         loadedCount++;
-        if (loadedCount === frame.maxIndex) setIsLoaded(true);
+        if (loadedCount === 1) {
+          setFirstImageLoaded(true); // First image is loaded, ready to show
+        }
+        if (loadedCount === 10) {
+          setIsLoaded(true); // All preloaded images are ready
+        }
       };
-      imgs.push(img);
+      preloadImages.push(img);
     }
-    setImages(imgs);
+
+    // Lazy load the rest of the images
+    const lazyLoadImages = [];
+    for (let i = 11; i <= frame.maxIndex; i++) {
+      const path = new URL(
+        `../../../assets/img/frames/frame_${i.toString().padStart(4, "0")}.png`,
+        import.meta.url,
+      ).href;
+      const img = new Image();
+      img.src = path; // Lazy load the remaining images
+      lazyLoadImages.push(img);
+    }
+
+    setImages([...preloadImages, ...lazyLoadImages]); 
   }, []);
 
+  // Draw the frame on the canvas
   const drawFrame = index => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -54,12 +77,13 @@ const Hero = () => {
     context.drawImage(img, x, y, scaledWidth, scaledHeight);
   };
 
+  // Handle resize and redraw frames accordingly
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !isLoaded) return;
 
     const handleResize = () => {
-      drawFrame(0);
+      drawFrame(0); // Draw the first frame on resize
     };
 
     resizeObserverRef.current = new ResizeObserver(handleResize);
@@ -75,6 +99,7 @@ const Hero = () => {
     };
   }, [isLoaded]);
 
+  // Lock scroll until images are fully loaded
   useEffect(() => {
     if (!isLoaded) {
       document.body.style.overflow = "hidden";
@@ -89,6 +114,7 @@ const Hero = () => {
     };
   }, [isLoaded]);
 
+  // Scroll-triggered animation and drawing on canvas
   useLayoutEffect(() => {
     if (!images.length || !isLoaded) return;
     ScrollTrigger.getAll().forEach(st => st.kill(true));
@@ -104,11 +130,11 @@ const Hero = () => {
           pin: true,
           onUpdate: self => {
             const frameIndex = Math.round(self.progress * (frame.maxIndex - 1));
-            drawFrame(frameIndex);
+            drawFrame(frameIndex); // Draw the appropriate frame based on scroll
           },
         },
       });
-      drawFrame(0);
+      drawFrame(0); // Draw the first frame immediately
       if (loaderRef.current) {
         gsap.to(loaderRef.current, {
           opacity: 0,
@@ -149,7 +175,7 @@ const Hero = () => {
       />
       <div
         ref={loaderRef}
-        className="fixed inset-0 bg-black flex flex-col items-center justify-center z-9999"
+        className="fixed inset-0 bg-black flex flex-col items-center justify-center z-[9999]"
       >
         <img
           src={gif}
