@@ -17,12 +17,11 @@ const Hero = () => {
   const location = useLocation();
   const resizeObserverRef = useRef(null);
 
-  // Preload first few images and lazy load the rest
+
   useEffect(() => {
     const preloadImages = [];
     let loadedCount = 0;
 
-    // Preload first 10 images (or adjust based on your needs)
     for (let i = 1; i <= 10; i++) {
       const path = new URL(
         `../../../assets/img/frames/frame_${i.toString().padStart(4, "0")}.png`,
@@ -33,16 +32,15 @@ const Hero = () => {
       img.onload = () => {
         loadedCount++;
         if (loadedCount === 1) {
-          setFirstImageLoaded(true); // First image is loaded, ready to show
+          setFirstImageLoaded(true);
         }
         if (loadedCount === 10) {
-          setIsLoaded(true); // All preloaded images are ready
+          setIsLoaded(true); 
         }
       };
       preloadImages.push(img);
     }
 
-    // Lazy load the rest of the images
     const lazyLoadImages = [];
     for (let i = 11; i <= frame.maxIndex; i++) {
       const path = new URL(
@@ -50,14 +48,13 @@ const Hero = () => {
         import.meta.url,
       ).href;
       const img = new Image();
-      img.src = path; // Lazy load the remaining images
+      img.src = path;
       lazyLoadImages.push(img);
     }
 
     setImages([...preloadImages, ...lazyLoadImages]); 
   }, []);
 
-  // Draw the frame on the canvas
   const drawFrame = index => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -77,13 +74,13 @@ const Hero = () => {
     context.drawImage(img, x, y, scaledWidth, scaledHeight);
   };
 
-  // Handle resize and redraw frames accordingly
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas || !isLoaded) return;
 
     const handleResize = () => {
-      drawFrame(0); // Draw the first frame on resize
+      drawFrame(0); 
     };
 
     resizeObserverRef.current = new ResizeObserver(handleResize);
@@ -99,7 +96,7 @@ const Hero = () => {
     };
   }, [isLoaded]);
 
-  // Lock scroll until images are fully loaded
+
   useEffect(() => {
     if (!isLoaded) {
       document.body.style.overflow = "hidden";
@@ -114,7 +111,6 @@ const Hero = () => {
     };
   }, [isLoaded]);
 
-  // Scroll-triggered animation and drawing on canvas
   useLayoutEffect(() => {
     if (!images.length || !isLoaded) return;
     ScrollTrigger.getAll().forEach(st => st.kill(true));
@@ -126,15 +122,15 @@ const Hero = () => {
           trigger: ".hero-section",
           start: "top top",
           end: "+=400%",
-          scrub: 1,
+          scrub: 1.5,
           pin: true,
           onUpdate: self => {
             const frameIndex = Math.round(self.progress * (frame.maxIndex - 1));
-            drawFrame(frameIndex); // Draw the appropriate frame based on scroll
+            drawFrame(frameIndex); 
           },
         },
       });
-      drawFrame(0); // Draw the first frame immediately
+      drawFrame(0); 
       if (loaderRef.current) {
         gsap.to(loaderRef.current, {
           opacity: 0,
